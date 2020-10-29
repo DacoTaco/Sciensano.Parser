@@ -300,3 +300,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+#custom
+COVID19*.json
