@@ -16,6 +16,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
+                <MenuItem Header="_Download File" Click="DownloadFile_Click"/>
                 <MenuItem Header="_Open File" Click="OpenFile_Click"/>
                 <MenuItem Header="_Exit" Click="ExitMenu_Click"/>
             </MenuItem>

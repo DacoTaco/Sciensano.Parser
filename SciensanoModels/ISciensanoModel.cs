@@ -2,11 +2,11 @@
 
 namespace Sciensano.CovidJson.Parser.SciensanoModels
 {
-    interface ISciensanoModel
+    public interface ISciensanoModel
     {
     }
 
-    interface IDatedSciensanoModel : ISciensanoModel
+    public interface IDatedSciensanoModel : ISciensanoModel
     {
         DateTime Date { get; set; }
     }

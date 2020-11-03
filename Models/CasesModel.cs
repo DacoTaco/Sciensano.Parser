@@ -3,7 +3,7 @@ using System;
 
 namespace Sciensano.CovidJson.Parser.Models
 {
-    public class CasesModel
+    public class CasesModel : ILocalModel
     {
         public CasesModel() { }
         public CasesModel(SciensanoCasesModel model)

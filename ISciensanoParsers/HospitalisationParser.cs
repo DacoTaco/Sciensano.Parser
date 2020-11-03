@@ -1,0 +1,43 @@
+﻿using Sciensano.CovidJson.Parser.Models;
+using Sciensano.CovidJson.Parser.SciensanoModels;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace Sciensano.CovidJson.Parser.ISciensanoParsers
+{
+    public class HospitalisationParser : BaseSciensanoParser<HospitalisationModel,SciensanoHospitalisationModel>
+    {
+        public HospitalisationParser() { }
+
+        public override IList<ILocalModel> Parse(Stream stream)
+        {
+            //string testJson = "[{\"DATE\":\"2020-03-15\",\"PROVINCE\":\"Antwerpen\",\"REGION\":\"Flanders\",\"NR_REPORTING\":14,\"TOTAL_IN\":50,\"TOTAL_IN_ICU\":9,\"TOTAL_IN_RESP\":4,\"TOTAL_IN_ECMO\":0,\"NEW_IN\":8,\"NEW_OUT\":8}]";
+
+            var list = new List<HospitalisationModel>();
+            var jsonmodels = ParseJson(stream);
+
+            foreach (var model in jsonmodels)
+            {
+                HospitalisationModel hospitalisationModel;
+
+                if (list.Count > 0 && list.Last().Date == model.Date)
+                {
+                    hospitalisationModel = list.Last();
+                    hospitalisationModel.Incoming += model.New_In;
+                    hospitalisationModel.Outgoing += model.New_Out;
+                }
+                else
+                {
+                    hospitalisationModel = new HospitalisationModel(model);
+                    hospitalisationModel.PreviousTotalHospitalisations = list.LastOrDefault()?.TotalHospitalisations ?? 0;
+                }
+
+                if (!list.Contains(hospitalisationModel))
+                    list.Add(hospitalisationModel);
+            }
+
+            return list.Cast<ILocalModel>().ToList();
+        }
+    }
+}
