@@ -8,6 +8,6 @@ namespace Sciensano.CovidJson.Parser.SciensanoModels
 
     public interface IDatedSciensanoModel : ISciensanoModel
     {
-        DateTime Date { get; set; }
+        DateTime? Date { get; set; }
     }
 }

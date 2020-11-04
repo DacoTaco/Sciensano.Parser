@@ -8,7 +8,7 @@ namespace Sciensano.CovidJson.Parser.Models
         public TestsModel() { }
         public TestsModel(SciensanoTestsModel model)
         {
-            Date = model.Date;
+            Date = model.Date ?? new DateTime();
             Tests = model.Tests_all;
             Positive = model.Tests_All_Pos;
         }

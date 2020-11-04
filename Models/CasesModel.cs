@@ -8,7 +8,7 @@ namespace Sciensano.CovidJson.Parser.Models
         public CasesModel() { }
         public CasesModel(SciensanoCasesModel model)
         {
-            Date = model.Date;
+            Date = model.Date ?? new DateTime();
             Cases = model.Cases;
         }
         public DateTime Date { get; set; }

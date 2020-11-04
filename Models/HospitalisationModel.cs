@@ -8,7 +8,7 @@ namespace Sciensano.CovidJson.Parser.Models
         public HospitalisationModel() { }
         public HospitalisationModel(SciensanoHospitalisationModel model)
         {
-            Date = model.Date;
+            Date = model.Date ?? new DateTime();
             Incoming = model.New_In;
             Outgoing = model.New_Out;
         }

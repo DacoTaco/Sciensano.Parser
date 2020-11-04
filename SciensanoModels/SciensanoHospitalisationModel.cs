@@ -4,7 +4,7 @@ namespace Sciensano.CovidJson.Parser.SciensanoModels
 {
     public class SciensanoHospitalisationModel : IDatedSciensanoModel
     {
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         public int New_In { get; set; }
         public int New_Out { get; set; }
         public string Province { get; set; }
