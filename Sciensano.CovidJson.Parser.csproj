@@ -58,16 +58,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ISciensanoParsers\BaseSciensanoParser.cs" />
-    <Compile Include="ISciensanoParsers\CasesParser.cs" />
-    <Compile Include="ISciensanoParsers\HospitalisationParser.cs" />
-    <Compile Include="ISciensanoParsers\SciensanoParserSelector.cs" />
-    <Compile Include="ISciensanoParsers\TestsParser.cs" />
+    <Compile Include="SciensanoParsers\BaseSciensanoParser.cs" />
+    <Compile Include="SciensanoParsers\CasesParser.cs" />
+    <Compile Include="SciensanoParsers\HospitalisationParser.cs" />
+    <Compile Include="Infrastructure\SciensanoParserFactory.cs" />
+    <Compile Include="SciensanoParsers\TestsParser.cs" />
     <Compile Include="Models\CasesModel.cs" />
     <Compile Include="Models\ILocalModel.cs" />
     <Compile Include="Models\TestsModel.cs" />
-    <Compile Include="ISciensanoParsers\ISciensanoParser.cs" />
-    <Compile Include="SciensanoCovidDownloader.cs" />
+    <Compile Include="Infrastructure\SciensanoCovidDownloader.cs" />
     <Compile Include="SciensanoModels\ISciensanoModel.cs" />
     <Compile Include="SciensanoModels\SciensanoCasesModel.cs" />
     <Compile Include="SciensanoModels\SciensanoTestsModel.cs" />

@@ -2,7 +2,7 @@
 using System;
 using System.Net;
 
-namespace Sciensano.CovidJson.Parser
+namespace Sciensano.CovidJson.Parser.Infrastructure
 {
     public static class SciensanoCovidDownloader
     {

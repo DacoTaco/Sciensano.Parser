@@ -6,8 +6,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Sciensano.CovidJson.Parser.ISciensanoParsers
+namespace Sciensano.CovidJson.Parser.SciensanoParsers
 {
+    public interface ISciensanoParser
+    {
+        IList<ILocalModel> Parse(Stream stream);
+    }
+
     public abstract class BaseSciensanoParser<T,Y> : ISciensanoParser 
         where T : ILocalModel 
         where Y : ISciensanoModel
@@ -40,7 +45,7 @@ namespace Sciensano.CovidJson.Parser.ISciensanoParsers
 
             if (typeof(Y).GetInterfaces().Contains(typeof(IDatedSciensanoModel)))
             {
-                list = list.Cast<IDatedSciensanoModel>().OrderBy(x => x.Date).Cast<Y>().ToList();
+                list = list.OrderBy(x => ((IDatedSciensanoModel)x).Date).ToList();
             }
 
             return list.AsEnumerable();

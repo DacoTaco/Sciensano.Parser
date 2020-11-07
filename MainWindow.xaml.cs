@@ -1,9 +1,8 @@
 ﻿using Microsoft.Win32;
-using Sciensano.CovidJson.Parser.ISciensanoParsers;
+using Sciensano.CovidJson.Parser.Infrastructure;
 using Sciensano.CovidJson.Parser.Models;
 using Sciensano.CovidJson.Parser.SciensanoModels;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -113,12 +112,12 @@ namespace Sciensano.CovidJson.Parser
                 if (stream == null || targetType == null)
                     throw new ArgumentException("Invalid stream or targetType.");
 
-                var parser = SciensanoParserSelector.GetParser(targetType);
+                var parser = SciensanoParserFactory.GetParser(targetType);
                 return parser.Parse(stream);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Exception trying to parse JSON file.{Environment.NewLine}Error : {Environment.NewLine}{ex.Message}");
+                throw new Exception($"Exception trying to parse JSON file.{Environment.NewLine}{ex.Message}");
             }
         }
     }

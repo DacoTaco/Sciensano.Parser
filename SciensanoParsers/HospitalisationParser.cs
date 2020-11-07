@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Sciensano.CovidJson.Parser.ISciensanoParsers
+namespace Sciensano.CovidJson.Parser.SciensanoParsers
 {
     public class HospitalisationParser : BaseSciensanoParser<HospitalisationModel,SciensanoHospitalisationModel>
     {

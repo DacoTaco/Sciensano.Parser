@@ -3,8 +3,9 @@ using Sciensano.CovidJson.Parser.SciensanoModels;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System;
 
-namespace Sciensano.CovidJson.Parser.ISciensanoParsers
+namespace Sciensano.CovidJson.Parser.SciensanoParsers
 {
     public class CasesParser : BaseSciensanoParser<CasesModel, SciensanoCasesModel>
     {
@@ -16,8 +17,11 @@ namespace Sciensano.CovidJson.Parser.ISciensanoParsers
 
             foreach (var model in jsonmodels)
             {
+                if (!model.Date.HasValue)
+                    continue;
+
                 CasesModel casesModel;
-                if (list.Count > 0 && list.Last().Date == model.Date)
+                if (list.Count > 0 && list.Last().Date == (model.Date ?? new DateTime()))
                 {
                     casesModel = list.Last();
                     casesModel.Cases += model.Cases;

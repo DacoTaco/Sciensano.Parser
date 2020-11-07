@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Sciensano.CovidJson.Parser.SciensanoParsers;
+using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Sciensano.CovidJson.Parser.ISciensanoParsers
+namespace Sciensano.CovidJson.Parser.Infrastructure
 {
-    public static class SciensanoParserSelector
+    public static class SciensanoParserFactory
     {
         public static ISciensanoParser GetParser(Type parserOf)
         {
@@ -15,7 +16,11 @@ namespace Sciensano.CovidJson.Parser.ISciensanoParsers
                             !t.IsAbstract &&
                             t.GetInterfaces().Contains(typeof(ISciensanoParser)) &&
                             (t.BaseType?.GenericTypeArguments?.Contains(parserOf) ?? false))
-                .Single();
+                .SingleOrDefault();
+
+            if (type == null)
+                throw new ArgumentException($"Unknown parser for type '{parserOf.Name}'");
+
             return Activator.CreateInstance(type) as ISciensanoParser;
         }
     }
