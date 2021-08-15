@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -24,7 +25,7 @@ namespace Sciensano.CovidJson.Parser
 
         private void ExitMenu_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
 
-        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        private async void OpenFile_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -34,7 +35,7 @@ namespace Sciensano.CovidJson.Parser
                     DefaultExt = ".json",
                     Filter = "JSON Data (.json)|*.json",
                     InitialDirectory = Directory.GetCurrentDirectory(),
-                    Title = $"Open {((TabItem)Tabs.SelectedItem).Header} File"
+                    Title = $"Open {((TabItem)Tabs.SelectedItem).Header} File" 
                 };
 
                 if (!(openDialog.ShowDialog(this) ?? false))
@@ -60,7 +61,7 @@ namespace Sciensano.CovidJson.Parser
 
                 IList<ILocalModel> list;
                 using (var stream = File.Open(openDialog.FileName, FileMode.Open))
-                    list = GetData(stream, targetType);
+                    list = await GetData(stream, targetType);
 
                 dataGrid.ItemsSource = list.Count > 0 ? list : null;
             }
@@ -70,7 +71,7 @@ namespace Sciensano.CovidJson.Parser
             }
         }
 
-        private void DownloadFile_Click(object sender, RoutedEventArgs e)
+        private async void DownloadFile_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -92,10 +93,10 @@ namespace Sciensano.CovidJson.Parser
                     sourceType = typeof(SciensanoHospitalisationModel);
                 }
 
-                var data = SciensanoCovidDownloader.GetCovidData(sourceType);
+                var data = await SciensanoCovidDownloader.GetCovidData(sourceType);
                 IList<ILocalModel> list;
                 using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(data)))
-                    list = GetData(stream, sourceType);
+                    list = await GetData(stream, sourceType);
 
                 dataGrid.ItemsSource = list.Count > 0 ? list : null;
             }
@@ -105,7 +106,7 @@ namespace Sciensano.CovidJson.Parser
             }
         }
 
-        private IList<ILocalModel> GetData(Stream stream, Type targetType)
+        private async Task<IList<ILocalModel>> GetData(Stream stream, Type targetType)
         {        
             try
             {
@@ -113,7 +114,7 @@ namespace Sciensano.CovidJson.Parser
                     throw new ArgumentException("Invalid stream or targetType.");
 
                 var parser = SciensanoParserFactory.GetParser(targetType);
-                return parser.Parse(stream);
+                return await parser.ParseAsync(stream);
             }
             catch (Exception ex)
             {

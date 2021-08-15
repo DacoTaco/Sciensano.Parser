@@ -3,6 +3,7 @@ using Sciensano.CovidJson.Parser.SciensanoModels;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sciensano.CovidJson.Parser.SciensanoParsers
 {
@@ -10,7 +11,7 @@ namespace Sciensano.CovidJson.Parser.SciensanoParsers
     {
         public HospitalisationParser() { }
 
-        public override IList<ILocalModel> Parse(Stream stream)
+        public override Task<List<ILocalModel>> ParseAsync(Stream stream)
         {
             //string testJson = "[{\"DATE\":\"2020-03-15\",\"PROVINCE\":\"Antwerpen\",\"REGION\":\"Flanders\",\"NR_REPORTING\":14,\"TOTAL_IN\":50,\"TOTAL_IN_ICU\":9,\"TOTAL_IN_RESP\":4,\"TOTAL_IN_ECMO\":0,\"NEW_IN\":8,\"NEW_OUT\":8}]";
 
@@ -29,15 +30,17 @@ namespace Sciensano.CovidJson.Parser.SciensanoParsers
                 }
                 else
                 {
-                    hospitalisationModel = new HospitalisationModel(model);
-                    hospitalisationModel.PreviousTotalHospitalisations = list.LastOrDefault()?.TotalHospitalisations ?? 0;
+                    hospitalisationModel = new HospitalisationModel(model)
+                    {
+                        PreviousTotalHospitalisations = list.LastOrDefault()?.TotalHospitalisations ?? 0
+                    };
                 }
 
                 if (!list.Contains(hospitalisationModel))
                     list.Add(hospitalisationModel);
             }
 
-            return list.Cast<ILocalModel>().ToList();
+            return Task.FromResult(list.Cast<ILocalModel>().ToList());
         }
     }
 }

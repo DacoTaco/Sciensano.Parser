@@ -5,12 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sciensano.CovidJson.Parser.SciensanoParsers
 {
     public interface ISciensanoParser
     {
-        IList<ILocalModel> Parse(Stream stream);
+        Task<List<ILocalModel>> ParseAsync(Stream stream);
     }
 
     public abstract class BaseSciensanoParser<T,Y> : ISciensanoParser 
@@ -19,7 +20,7 @@ namespace Sciensano.CovidJson.Parser.SciensanoParsers
     {
         public BaseSciensanoParser() { }
 
-        public abstract IList<ILocalModel> Parse(Stream stream);
+        public abstract Task<List<ILocalModel>> ParseAsync(Stream stream);
 
         protected static IEnumerable<Y> ParseJson(Stream stream)
         {

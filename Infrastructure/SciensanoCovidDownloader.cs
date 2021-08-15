@@ -1,12 +1,13 @@
 ﻿using Sciensano.CovidJson.Parser.SciensanoModels;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Sciensano.CovidJson.Parser.Infrastructure
 {
     public static class SciensanoCovidDownloader
     {
-        public static string GetCovidData( Type sourceType )
+        public async static Task<string> GetCovidData( Type sourceType )
         {
             var fileName = "";
             switch (sourceType.Name)
@@ -30,13 +31,13 @@ namespace Sciensano.CovidJson.Parser.Infrastructure
             var data = "";
             using (var client = new WebClient())
             {
-                data = client.DownloadString($"https://epistat.sciensano.be/Data/{fileName}");
+                data = await client.DownloadStringTaskAsync($"https://epistat.sciensano.be/Data/{fileName}");
             }
 
             if (string.IsNullOrWhiteSpace(data))
                 throw new Exception($"failed to download {fileName}. Data is empty");
 
-            return data;
-        }
+            return data;            
+    }
     }
 }

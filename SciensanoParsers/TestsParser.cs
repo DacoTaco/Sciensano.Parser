@@ -3,12 +3,13 @@ using Sciensano.CovidJson.Parser.SciensanoModels;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sciensano.CovidJson.Parser.SciensanoParsers
 {
     public class TestsParser : BaseSciensanoParser<TestsModel, SciensanoTestsModel>
     {
-        public override IList<ILocalModel> Parse(Stream stream)
+        public override Task<List<ILocalModel>> ParseAsync(Stream stream)
         {
             //string testJson = "[{\"DATE\":\"2020-03-01\",\"PROVINCE\":\"Antwerpen\",\"REGION\":\"Flanders\",\"TESTS_ALL\":18,\"TESTS_ALL_POS\":0}]";
 
@@ -36,7 +37,7 @@ namespace Sciensano.CovidJson.Parser.SciensanoParsers
                 if (!list.Contains(testsModel))
                     list.Add(testsModel);
             }
-            return list.Cast<ILocalModel>().ToList();
+            return Task.FromResult(list.Cast<ILocalModel>().ToList());
         }
     }
 }
