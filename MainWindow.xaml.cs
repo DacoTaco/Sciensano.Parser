@@ -57,7 +57,12 @@ namespace Sciensano.CovidJson.Parser
                 {
                     dataGrid = HospitalisationGrid;
                     targetType = typeof(HospitalisationModel);
-                }  
+                }
+                else if (tabVaccinations.IsSelected)
+                {
+                    dataGrid = VaccinationsGrid;
+                    targetType = typeof(VaccinationModel);
+                }
 
                 IList<ILocalModel> list;
                 using (var stream = File.Open(openDialog.FileName, FileMode.Open))
@@ -91,6 +96,11 @@ namespace Sciensano.CovidJson.Parser
                 {
                     dataGrid = HospitalisationGrid;
                     sourceType = typeof(SciensanoHospitalisationModel);
+                }
+                else if (tabVaccinations.IsSelected)
+                {
+                    dataGrid = VaccinationsGrid;
+                    sourceType = typeof(SciensanoVaccinationModel);
                 }
 
                 var data = await SciensanoCovidDownloader.GetCovidData(sourceType);

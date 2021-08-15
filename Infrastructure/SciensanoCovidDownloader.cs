@@ -21,6 +21,9 @@ namespace Sciensano.CovidJson.Parser.Infrastructure
                 case nameof(SciensanoTestsModel):
                     fileName = "COVID19BE_tests.json";
                     break;
+                case nameof(SciensanoVaccinationModel):
+                    fileName = "COVID19BE_VACC.json";
+                    break;
                 default:
                     throw new Exception($"Invalid source type '{sourceType.Name}'");
             }

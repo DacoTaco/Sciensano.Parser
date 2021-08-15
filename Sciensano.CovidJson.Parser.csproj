@@ -87,6 +87,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\VaccinationModel.cs" />
+    <Compile Include="SciensanoModels\SciensanoVaccinationModel.cs" />
     <Compile Include="SciensanoParsers\BaseSciensanoParser.cs" />
     <Compile Include="SciensanoParsers\CasesParser.cs" />
     <Compile Include="SciensanoParsers\HospitalisationParser.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="SciensanoModels\ISciensanoModel.cs" />
     <Compile Include="SciensanoModels\SciensanoCasesModel.cs" />
     <Compile Include="SciensanoModels\SciensanoTestsModel.cs" />
+    <Compile Include="SciensanoParsers\VaccinationParser.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -78,6 +78,20 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
+                <TabItem Name="tabVaccinations" Header="Vaccinations">
+                    <DataGrid x:Name="VaccinationsGrid" AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="CellOrRowHeader">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Copy" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Brand" Binding="{Binding Brand}"/>
+                            <DataGridTextColumn Header="Dose" Binding="{Binding Dose}"/>
+                            <DataGridTextColumn Header="Count" Binding="{Binding Count, StringFormat=\{0:N0\}}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
             </TabControl>
         </Grid>
     </DockPanel>
