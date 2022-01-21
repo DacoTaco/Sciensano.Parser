@@ -22,6 +22,9 @@ namespace Sciensano.CovidJson.Parser.Models
                 case SciensanoModels.Dose.C:
                     Dose = Dose.OnlyDose;
                     break;
+                case SciensanoModels.Dose.E:
+                    Dose = Dose.Third;
+                    break;
                 default:
                     Dose = Dose.Unknown;
                     break;
@@ -39,6 +42,7 @@ namespace Sciensano.CovidJson.Parser.Models
         Unknown = 0,
         First,
         Second,
+        Third,
         OnlyDose
     }
 }

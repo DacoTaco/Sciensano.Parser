@@ -19,6 +19,7 @@ namespace Sciensano.CovidJson.Parser.SciensanoModels
         Unknown,
         A,
         B,
-        C
+        C,
+        E
     }
 }
