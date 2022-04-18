@@ -16,7 +16,6 @@ namespace Sciensano.CovidJson.Parser.Models
         public DateTime Date { get; set; }
         public int Incoming { get; set; }
         public int Outgoing { get; set; }
-        public int PreviousTotalHospitalisations { get; set; }
-        public int TotalHospitalisations => PreviousTotalHospitalisations + Incoming - Outgoing;
+        public int TotalHospitalisations { get; set; }
     }
 }

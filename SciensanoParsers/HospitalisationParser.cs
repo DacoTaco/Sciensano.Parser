@@ -20,24 +20,17 @@ namespace Sciensano.CovidJson.Parser.SciensanoParsers
 
             foreach (var model in jsonmodels)
             {
-                HospitalisationModel hospitalisationModel;
-
                 if (list.Count > 0 && list.Last().Date == model.Date)
                 {
-                    hospitalisationModel = list.Last();
+                    var hospitalisationModel = list.Last();
                     hospitalisationModel.Incoming += model.New_In;
                     hospitalisationModel.Outgoing += model.New_Out;
+                    hospitalisationModel.TotalHospitalisations += model.Total_In;
                 }
                 else
                 {
-                    hospitalisationModel = new HospitalisationModel(model)
-                    {
-                        PreviousTotalHospitalisations = list.LastOrDefault()?.TotalHospitalisations ?? 0
-                    };
+                    list.Add(new HospitalisationModel(model));
                 }
-
-                if (!list.Contains(hospitalisationModel))
-                    list.Add(hospitalisationModel);
             }
 
             return Task.FromResult(list.Cast<ILocalModel>().ToList());
